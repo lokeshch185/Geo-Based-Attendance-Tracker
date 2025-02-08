@@ -1,6 +1,9 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet, ScrollView } from "react-native";
+import React, { useState,useEffect } from "react";
+import { 
+  View, Text, TextInput, Button, StyleSheet, ScrollView, Alert, PermissionsAndroid, Platform 
+} from "react-native";
 import { Picker } from "@react-native-picker/picker";
+import Geolocation from "react-native-geolocation-service";
 import axios from "axios";
 
 const SubjectForm = () => {
@@ -19,15 +22,11 @@ const SubjectForm = () => {
     setSchedule([...schedule, { day: "Monday", time: "" }]);
   };
 
+  
   const handleSubmit = async () => {
     try {
-      console.log({
-        name,
-        locationName,
-        coordinates,
-        schedule,
-      });
-      const response = await axios.post(`http://192.168.73.233:5000/api/subjects/create`, {
+      console.log({ name, locationName, coordinates, schedule });
+      const response = await axios.post(`http://10.10.60.231:5000/api/subjects/create`, {
         name,
         locationName,
         coordinates,
@@ -74,6 +73,8 @@ const SubjectForm = () => {
         placeholder="Enter longitude"
         keyboardType="numeric"
       />
+
+      <Button title="Detect Location" onPress={detectLocation} />
 
       <Text style={styles.label}>Schedule:</Text>
       {schedule.map((entry, index) => (

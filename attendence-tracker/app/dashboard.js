@@ -28,6 +28,7 @@ export default function Dashboard() {
       })}
     >
       <Tab.Screen name="Subjects" component={SubjectList} />
+      <Tab.Screen name="Subjects" component={SubjectList} />
       <Tab.Screen name="Add Subject" component={SubjectForm} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
