@@ -53,21 +53,24 @@ export default function floorPlan() {
     let formData = new FormData();
     formData.append("file", {
       uri,
-      name: "image.jpg",
+      name: "image.jpeg",
       type: "image/jpeg",
     });
-
+  
     try {
-      const response = await axios.post("https://yourserver.com/upload", formData, {
+      console.log("Uploading image...");
+      const response = await axios.post("http://10.10.60.231:5000/api/floorplan/upload-image", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setResponseData(response.data);
     } catch (error) {
-      console.error("Upload failed:", error);
+      console.error("Upload failed:", error.response || error.message || error);
+      setResponseData({ message: "Upload failed" });
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <ScrollView style={styles.container}>
@@ -84,7 +87,7 @@ export default function floorPlan() {
       </View>
       {image && <Image source={{ uri: image }} style={styles.previewImage} />}
       {loading && <ActivityIndicator size="large" color="#007AFF" style={styles.loader} />}
-      {responseData && <Text style={styles.responseText}>{responseData.message}</Text>}
+      {responseData && <Text style={styles.responseText}>{responseData.data}</Text>}
     </ScrollView>
   );
 }

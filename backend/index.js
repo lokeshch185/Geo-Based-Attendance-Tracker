@@ -7,6 +7,7 @@ const { checkScheduleAndNotify } = require('./services/AttendenceTracker.js');
 
 const subjectRoutes = require("./routes/subjectRoutes.js");
 const attendanceRoutes = require("./routes/attendanceRoutes");
+const floorPlanRoutes = require("./routes/floorPlanRoutes");
 
 const app = express();
 app.use(cors());
@@ -16,6 +17,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/subjects", subjectRoutes);
 app.use("/api/attendance", attendanceRoutes);
+app.use("/api/floorplan", floorPlanRoutes);
+app.get("/", (req, res) => {
+  res.send("Server is running");
+});
 setInterval(checkScheduleAndNotify, 60000);
 
 mongoose

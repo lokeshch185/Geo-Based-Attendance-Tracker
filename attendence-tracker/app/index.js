@@ -51,7 +51,7 @@ export default function Home() {
             title="Render Furniture in AR"
             description="Visualize furniture in your space using augmented reality."
             image={require("./assets/home-bg.jpeg")}
-            onPress={() => router.push("/ar-view")}
+            onPress={() => router.push("./SubjectList")}
           />
           <FeatureCard
             title="AI Design Suggestions"
